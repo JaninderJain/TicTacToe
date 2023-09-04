@@ -3,6 +3,7 @@ using namespace std;
 
 string arr[3][3]={"1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 "};
 string med[4][4]={"1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 ","10","11","12","13","14","15","16"};
+string har[5][5]={"1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 ","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25" };
 
 bool turn=true;
 int pos;
@@ -12,11 +13,46 @@ string player1, player2;
 int count=0;
 int level=0;
 
+
+
+bool gameL3isfinish(){
+    //for level 3
+    bool game= true;
+    for(int i=0;i<5;i++){
+        // vertically
+        if(har[0][i] ==har[1][i] && har[0][i] == har[2][i]&& har[0][i]==har[3][i] && har[0][i]==har[4][i]){
+            win=har[0][i];
+            game=false;
+            break;
+        }
+    }
+    for(int i=0;i<4;i++){
+        //horizontally 
+        if (har[i][0]==har[i][1] && har[i][1]==har[i][2] && har[i][2]== har[i][3] && har[i][3]== har[i][4]){
+            win=har[i][0];
+            game=false;
+            break;
+        }
+    }
+    //Left diagonal
+    if(har[0][0]==har[1][1] && har[0][0] == har[2][2]&& har[0][0] ==har[3][3] && har[0][0]== har[4][4] ){
+        win=har[1][1];
+        game=false;
+    }
+    //Right diagonal
+    else if (har[2][2]==har[0][4] && har[2][2]==har[1][3] && har[2][2]==har[3][1] && har[2][2]==har[4][0]){
+        win=har[2][2];
+        game=false;
+    }
+
+    return game;
+    
+}
 bool gameL2isfinish(){
     //for level 2
     bool game= true;
     for(int i=0;i<4;i++){
-        //checking horizontally or vertically
+        //vertically
         if(med[0][i] ==med[1][i] && med[0][i] == med[2][i]&& med[0][i]==med[3][i] ){
             win=med[0][i];
             game=false;
@@ -24,6 +60,7 @@ bool gameL2isfinish(){
         }
     }
     for(int i=0;i<4;i++){
+        // horizontally
         if (med[i][0]==med[i][1] && med[i][1]==med[i][2] && med[i][2]== med[i][3] ){
             win=med[i][0];
             game=false;
@@ -31,12 +68,12 @@ bool gameL2isfinish(){
             break;
         }
     }
-    //checking diagnally
+    //Left Diagonal
     if(med[0][0]==med[1][1] && med[0][0] == med[2][2]&& med[0][0] ==med[3][3] ){
         win=med[1][1];
         game=false;
     }
-    //anti diagonal
+    //Right diagonal
     else if (med[0][3]==med[1][2] && med[2][1]==med[1][2] && med[2][1]==med[3][0]){
         win=med[0][3];
         game=false;
@@ -58,7 +95,7 @@ bool gameL1isfinish(){
             break;
         }
     }
-    //checking doaginally
+    //checking diagonally
     if((arr[0][0]==arr[1][1] && arr[0][0] ==arr[2][2] )|| (arr[0][2]==arr[1][1] && arr[2][0]==arr[1][1])){
         win=arr[1][1];
         game=false;
@@ -98,6 +135,28 @@ void displayToe(int level){
         cout<<"     |     |     |    "<<endl;
 
     }
+
+    //5*5
+    else if(level==3){
+
+        cout<<endl<<"     |     |     |     |     "<<endl;
+        cout<<"  "<<har[0][0] <<" |  "<<har[0][1]<<" |  "<<har[0][2]<<" |  "<<har[0][3]<<" |  "<<har[0][4]<<"  "<<endl;
+        cout<<"_____|_____|_____|_____|_____"<<endl;
+        cout<<"     |     |     |     |     "<<endl;
+        cout<<"  "<<har[1][0] <<" |  "<<har[1][1]<<" |  "<<har[1][2]<<" |  "<<har[1][3]<<" |  "<<har[1][4]<<"  "<<endl;
+        cout<<"_____|_____|_____|_____|_____"<<endl;
+        cout<<"     |     |     |     |     "<<endl;
+        cout<<"  "<<har[2][0] <<" |  "<<har[2][1]<<" |  "<<har[2][2]<<" |  "<<har[2][3]<<" |  "<<har[2][4]<<"  "<<endl;
+        cout<<"_____|_____|_____|_____|_____"<<endl;
+        cout<<"     |     |     |     |     "<<endl;
+        cout<<"  "<<har[3][0] <<" |  "<<har[3][1]<<" |  "<<har[3][2]<<" |  "<<har[3][3]<<" |  "<<har[3][4]<<"  "<<endl;
+        cout<<"_____|_____|_____|_____|_____"<<endl;
+        cout<<"     |     |     |     |     "<<endl;
+        cout<<"  "<<har[4][0] <<" |  "<<har[4][1]<<" |  "<<har[4][2]<<" |  "<<har[4][3]<<" |  "<<har[4][4]<<"  "<<endl;
+        cout<<"     |     |     |     |    "<<endl;
+
+    }
+
 }
 
 void playerturn(){
@@ -173,18 +232,54 @@ void playerturn(){
             cout<<"Invalid Position"<<endl;
             playerturn();
         }
-
     }
+    //Hard Level
+    else if(level==3){
+
+        if(pos<=5 && har[0][pos-1]!="X " &&har[0][pos-1]!="O "){
+            har[0][pos-1]=ch;
+            turn=!turn;
+            count++;
+        }
+        else if(pos>5 && pos<=10 &&har[1][pos-6]!="X " &&har[1][pos-6]!="O " ){
+            har[1][pos-6]=ch;
+            turn=!turn;
+            count++;
+        }
+        else if(pos>10 && pos<=15 &&har[2][pos-11]!="X " &&har[2][pos-11]!="O "){
+            
+            har[2][pos-11]=ch;
+            turn=!turn;
+            count++;
+        
+        }
+        else if(pos>15 && pos<=20 &&har[3][pos-16]!="X " &&har[3][pos-16]!="O "){
+            
+            har[3][pos-16]=ch;
+            turn=!turn;
+            count++;
+        }
+        else if(pos>20 && pos<=25 &&har[4][pos-21]!="X " &&har[4][pos-21]!="O "){
+            
+            har[4][pos-21]=ch;
+            turn=!turn;
+            count++;
+        }
+
+        else{
+            cout<<"Invalid Position"<<endl;
+            playerturn();
+        }
+    }
+
     displayToe(level);
-    
-    
 }
 
 int main(){
     //Welcome Menu
     cout<<"Welcome to TicTacToe"<<endl;
     cout<<"Rules :- Just Press number of position , you want to place your turn1"<<endl;
-    cout<<"Level :-"<<endl<<"1. Easy(3*3)"<<endl<<"2. Medium(4*4)"<<endl <<"Press Number: ";
+    cout<<"Level :-"<<endl<<"1. Easy(3*3)"<<endl<<"2. Medium(4*4)"<<endl <<"3. Hard(5*5)"<<endl<<"Press Number: ";
     cin>>level;
     cout<<"1. Player 1 (X)"<<endl<<"2. Player 2 (O)"<<endl;
     cout<<"Player 1 name:- "<<endl;
@@ -205,6 +300,16 @@ int main(){
         while(gameL2isfinish() && count<16){
             playerturn();
         }
+    }
+
+    //Hard Level
+    else if(level==3){
+        while(gameL3isfinish() && count<25){
+            playerturn();
+        }
+    }
+    else{
+        cout<<"Invalid Level"<<endl;
     }
 
     //winner
