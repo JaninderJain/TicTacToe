@@ -173,10 +173,14 @@ void playerturn(){
         ch="O ";
         
     }
+    if(pos<=0){
+        cout<<"Invalid Position"<<endl;
+        playerturn();
+    }
     //easy level
     if(level==1){
 
-        if(pos<=3 && arr[0][pos-1]!="X " &&arr[0][pos-1]!="O "){
+        if(0<pos<=3 && arr[0][pos-1]!="X " &&arr[0][pos-1]!="O "){
             arr[0][pos-1]=ch;
             turn=!turn;
             count++;
@@ -199,7 +203,7 @@ void playerturn(){
     //medium level
     else if(level==2){
 
-        if(pos<=4 && med[0][pos-1]!="X " &&med[0][pos-1]!="O "){
+        if(0<pos<=4 && med[0][pos-1]!="X " &&med[0][pos-1]!="O "){
             med[0][pos-1]=ch;
             turn=!turn;
             count++;
@@ -236,7 +240,7 @@ void playerturn(){
     //Hard Level
     else if(level==3){
 
-        if(pos<=5 && har[0][pos-1]!="X " &&har[0][pos-1]!="O "){
+        if(0<pos<=5 && har[0][pos-1]!="X " &&har[0][pos-1]!="O "){
             har[0][pos-1]=ch;
             turn=!turn;
             count++;
